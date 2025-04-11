@@ -20,19 +20,19 @@ def load_artifact_data(excel_filepath):
     return df_excel
     # return the resulting DataFrame
 
-def load_location_notes(tsv_filepath):
+def load_location_notes(TSV_FILEpath):
     """
     Reads location data from a Tab-Separated Value (TSV) file.
 
     Args:
-        tsv_filepath (str): The path to the locations TSV file.
+        TSV_FILEpath (str): The path to the locations TSV file.
 
     Returns:
         pandas.DataFrame: DataFrame containing the location data.
     """
     # Hint: Use pd.read_csv, specify the separator for tabs ('\t')
     # Replace 'pass' with your code
-    df_tsv = pd.read_csv(tsv_filepath, sep='\t')
+    df_tsv = pd.read_csv(TSV_FILEpath, sep='\t')
     return df_tsv
     # return the resulting DataFrame
 
@@ -49,7 +49,7 @@ def extract_journal_dates(journal_text):
     # Hint: Use re.findall with a raw string pattern for MM/DD/YYYY format.
     # Pattern idea: r"\d{2}/\d{2}/\d{4}"
     # Replace 'pass' with your code
-    pattern = r"\d{2}/\d{2}/\d{4}"
+    pattern = r"\b\d{2}/\d{2}/\d{4}\b"
     found_dates = re.findall(pattern,journal_text)
     return found_dates
     # return the list of found dates
@@ -75,33 +75,33 @@ def extract_secret_codes(journal_text):
 # --- Optional: Main execution block for your own testing ---
 if __name__ == '__main__':
     # Define file paths (adjust if your files are located elsewhere)
-    excel_file = 'artifacts.xlsx'
-    tsv_file = 'locations.tsv'
-    journal_file = 'journal.txt'
+    EXCEL_FILE = 'artifacts.xlsx'
+    TSV_FILE = 'locations.tsv'
+    JOURNAL_FILE = 'journal.txt'
 
-    print(f"--- Loading Artifact Data from {excel_file} ---")
+    print(f"--- Loading Artifact Data from {EXCEL_FILE} ---")
     try:
-        artifacts_df = load_artifact_data(excel_file)
+        artifacts_df = load_artifact_data(EXCEL_FILE)
         print("Successfully loaded DataFrame. First 5 rows:")
         print(artifacts_df.head())
         print("\nDataFrame Info:")
         artifacts_df.info()
     except FileNotFoundError:
-        print(f"Error: File not found at {excel_file}")
+        print(f"Error: File not found at {EXCEL_FILE}")
 
-    print(f"\n--- Loading Location Notes from {tsv_file} ---")
+    print(f"\n--- Loading Location Notes from {TSV_FILE} ---")
     try:
-        locations_df = load_location_notes(tsv_file)
+        locations_df = load_location_notes(TSV_FILE)
         print("Successfully loaded DataFrame. First 5 rows:")
         print(locations_df.head())
         print("\nDataFrame Info:")
         locations_df.info()
     except FileNotFoundError:
-        print(f"Error: File not found at {tsv_file}")
+        print(f"Error: File not found at {TSV_FILE}")
 
-    print(f"\n--- Processing Journal from {journal_file} ---")
+    print(f"\n--- Processing Journal from {JOURNAL_FILE} ---")
     try:
-        with open(journal_file, 'r', encoding='utf-8') as f:
+        with open(JOURNAL_FILE, 'r', encoding='utf-8') as f:
             journal_content = f.read()
 
         print("\nExtracting Dates...")
@@ -113,4 +113,4 @@ if __name__ == '__main__':
         print(f"Found codes: {codes}")
 
     except FileNotFoundError:
-        print(f"Error: File not found at {journal_file}")
+        print(f"Error: File not found at {JOURNAL_FILE}")
